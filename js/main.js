@@ -86,76 +86,7 @@ document.querySelectorAll('.fq__q').forEach(btn => {
   });
 });
 
-// ---------- Phone mockup: rotating activities ----------
-const activities = [
-  {
-    name: 'Morning Walk',
-    instruction: 'Feel the ground beneath each step. Let each footfall be a complete arrival in the present moment.'
-  },
-  {
-    name: 'Making Tea',
-    instruction: 'Feel the warmth of the cup in your hands. Let the steam, the scent, the colour — all of it — be your world right now.'
-  },
-  {
-    name: 'Cooking',
-    instruction: 'Let the knife become an extension of your hand. Feel every texture, hear every sizzle, breathe every aroma.'
-  },
-  {
-    name: 'Commuting',
-    instruction: 'Rather than waiting to arrive, notice what it feels like to be in motion. The body, the breath, the hum.'
-  },
-  {
-    name: 'Deep Work',
-    instruction: 'Before diving in, take one breath. Feel your hands on the keyboard. Begin from here — fully here.'
-  },
-  {
-    name: 'Evening Shower',
-    instruction: 'Let the water falling on your skin be the only thing that exists right now. Temperature, pressure, sound.'
-  }
-];
-
-let activityIndex = 0;
-const phoneActivity = document.getElementById('phoneActivity');
-const phoneInstruction = document.getElementById('phoneInstruction');
-const nudgeTimer = document.getElementById('nudgeTimer');
-const progressBar = document.getElementById('progressBar');
-
-function fadeActivity(newActivity) {
-  if (!phoneActivity) return;
-  phoneActivity.style.opacity = '0';
-  phoneInstruction.style.opacity = '0';
-  setTimeout(() => {
-    phoneActivity.textContent = newActivity.name;
-    phoneInstruction.textContent = newActivity.instruction;
-    phoneActivity.style.opacity = '1';
-    phoneInstruction.style.opacity = '1';
-    resetProgress();
-  }, 400);
-}
-
-let progressWidth = 30;
-function resetProgress() {
-  progressWidth = 0;
-  if (progressBar) progressBar.style.width = '0%';
-  setTimeout(() => {
-    if (progressBar) progressBar.style.width = '65%';
-    progressWidth = 65;
-  }, 100);
-}
-
-let nudgeCountdown = 12;
-function tickNudge() {
-  nudgeCountdown--;
-  if (nudgeCountdown <= 0) {
-    nudgeCountdown = 12 + Math.floor(Math.random() * 6);
-    activityIndex = (activityIndex + 1) % activities.length;
-    fadeActivity(activities[activityIndex]);
-  }
-  if (nudgeTimer) nudgeTimer.textContent = nudgeCountdown + ' min';
-}
-
-resetProgress();
-setInterval(tickNudge, 1000);
+// (phone mockup is now a real screenshot — no JS animation needed)
 
 // ---------- Active nav link on scroll ----------
 const sections = document.querySelectorAll('section[id]');
