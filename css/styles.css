@@ -327,6 +327,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   object-fit: cover;
   object-position: center;
   opacity: 0.40;
+  filter: grayscale(1);
   mask-image: radial-gradient(ellipse 52% 58% at 50% 50%, transparent 28%, black 65%);
   -webkit-mask-image: radial-gradient(ellipse 52% 58% at 50% 50%, transparent 28%, black 65%);
 }
