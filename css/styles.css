@@ -542,6 +542,50 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-self: flex-start;
 }
 
+/* Clickable pillar cards */
+a.fcard {
+  cursor: pointer;
+}
+.fcard__explore {
+  margin-top: 16px;
+  font-size: 0.78rem;
+  color: var(--blue);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s var(--ease-out);
+}
+a.fcard:hover .fcard__explore {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Stub sections (Guided Meditation, Stay — fleshed out in next batch) */
+.meditation-section {
+  padding: 80px 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stay-section {
+  padding: 80px 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* "More" chip as a link */
+a.chip--more {
+  cursor: pointer;
+  text-decoration: none;
+}
+a.chip--more:hover {
+  background: rgba(255,157,92,0.25);
+  border-color: rgba(255,157,92,0.4);
+  transform: translateY(-1px);
+}
+
 /* ============================================================
    PHILOSOPHY
    ============================================================ */
@@ -607,13 +651,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   z-index: 1;
 }
 .philosophy__visual img {
-  width: 280px;
-  height: 280px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   margin: 0 auto;
   opacity: 0.9;
-  filter: drop-shadow(0 0 40px rgba(99,176,248,0.3));
-  animation: gentleSpin 40s linear infinite;
+  filter: drop-shadow(0 0 48px rgba(99,176,248,0.4));
 }
 
 @keyframes pulsate {
@@ -1234,7 +1277,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* --- Reduced motion preference --- */
 @media (prefers-reduced-motion: reduce) {
   .hero__bg-img,
-  .philosophy__visual img,
   .mv-core,
   .mv-ring,
   .scroll-indicator__dot { animation: none !important; }
