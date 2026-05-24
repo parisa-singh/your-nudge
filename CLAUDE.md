@@ -1,4 +1,6 @@
-# Your Nudge — Website
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 Marketing website for **Your Nudge**, an iOS mindfulness app (App Store ID: 6739236420).
@@ -10,31 +12,16 @@ Target domain: `https://yournudge.com/` (custom domain — not yet configured)
 - GitHub Pages for hosting (deploys automatically from `main` branch, ~30s delay)
 - Google Fonts: Playfair Display (headings) + DM Sans (body)
 
-## File Structure
+## Deploy
+```bash
+git add .
+git commit -m "your message"
+git push origin main
 ```
-yournudge-website/
-├── index.html          # Main page (single-page site)
-├── css/
-│   └── styles.css      # All styles — uses CSS custom properties
-├── js/
-│   └── main.js         # All interactivity
-├── assets/
-│   ├── home_bg.png         # Dark navy mandala texture (hero background)
-│   ├── intro_icon.png      # Rainbow neon mandala (philosophy section)
-│   ├── ic_nudge_logo.png   # App logo mark (nav + footer)
-│   ├── cultivate_icon.png  # Teal lotus icon (features card 1)
-│   ├── live_icon.png       # Teal open hand icon (features card 2)
-│   ├── return_icon.png     # Teal tapping finger icon (features card 3)
-│   ├── screenshot_home.png # Real app screenshot (How It Works section)
-│   └── screenshots/        # Additional app screenshots (not yet used)
-├── CLAUDE.md           # This file
-└── (pending)
-    ├── privacy.html
-    └── terms.html
-```
+GitHub Pages auto-deploys within ~30 seconds.
 
 ## Design System
-**Colors (sourced directly from app — Colors.xcassets in manojNeelam/nudge_qa)**
+**Colors (sourced directly from app — Colors.xcassets)**
 ```css
 --bg:          #0B1629   /* dark navy, main background */
 --bg-alt:      #0F1C38   /* slightly lighter navy, alternating sections */
@@ -54,80 +41,77 @@ yournudge-website/
 --border-warm: rgba(255,157,92,0.2)
 ```
 
-**Typography**
-- Headings: Playfair Display (serif, italic for emphasis)
-- Body: DM Sans (sans-serif)
+**Typography:** Playfair Display (headings, italic for spiritual emphasis) + DM Sans (body)
 
-**Tone**
-Professional, warm, contemplative. Not clinical. Italic for spiritual/philosophical emphasis.
+**Tone:** Professional, warm, contemplative. Not clinical.
 
 ## Page Sections (in order)
-1. **Nav** — sticky, blurs on scroll, mobile burger menu
-2. **Hero** — `home_bg.png` mandala at edges only (CSS radial mask), centered text, App Store CTA
-3. **Stats bar** — 4 animated counters (112 techniques, 50+ activities, 5,000+ years, $0 to start)
-4. **Features / Three Paths** — Cultivate, Live with, Return to Awareness (real PNG icons)
-5. **Philosophy** — Choiceless Awareness, `intro_icon.png` spinning mandala viz
-6. **Techniques** — 6 sample cards from 112, CTA to download
-7. **How It Works** — activity chips + real `screenshot_home.png` in phone frame
-8. **Pricing** — $0 / $9.99 / $19.99 per year, in-app payment note + Download CTA
-9. **FAQ** — 6 accordion items
-10. **Final CTA** — "Most of your life is lived in the small moments"
-11. **Footer** — logo, social links (placeholder), nav columns, legal links
+1. **Nav** — sticky, blurs on scroll (`scrolled` class), mobile burger menu
+2. **Hero** (`#hero`) — `home_bg.png` mandala at edges via CSS radial mask (see below), centered text, App Store CTA
+3. **Stats** — 4 animated counters (112, 50+, 5,000+, $0); fire via IntersectionObserver on `[data-count]`
+4. **Foundation** (`#foundation`) — Choiceless Awareness philosophy, `app_icon.png`
+5. **Three Pillars** (`#pillars`) — 3 feature cards linking to their respective sections; real PNG icons
+6. **Guided Meditation** (`#guided-meditation`) — activity chips + dual phone mockup (IMG_9068 + IMG_9070)
+7. **Guided Activities** (`#guided-activities`) — activity chips + dual phone mockup (IMG_9069 + IMG_9068)
+8. **Stay** (`#stay`) — Focus Timer + Nudge Frequency; single phone mockup (`still_focused.png`)
+9. **Ancient Wisdom** (`#techniques`) — 6 sample technique cards from the 112
+10. **Pricing** (`#pricing`) — Begin ($0) / Support ($9.99/yr) / Commit ($19.99/yr); all plans identical features
+11. **FAQ** (`#faq`) — 6 accordion items
+12. **Final CTA** — animated CSS mandala rings, download CTA
+13. **Footer** — real social links (Instagram, X, Twitter, Facebook); legal links to `/privacy.html`, `/terms.html`
 
-## Hero Background — Important Details
+## Hero Background
 The hero uses `home_bg.png` (grey mandala texture) with:
-- `filter: grayscale(1)` — strips color from the colorful center mandala, leaving only grey texture
-- `mask-image: radial-gradient(ellipse 62% 68% at 50% 50%, transparent 0%, transparent 45%, black 78%)` — makes center completely transparent so text sits on clean dark navy; mandala only visible at edges/corners
-- `opacity: 0.40`
-- No rotation (static)
+- `filter: grayscale(1)` — strips color from the colorful center mandala
+- `mask-image: radial-gradient(ellipse 62% 68% at 50% 50%, transparent 0%, transparent 45%, black 78%)` — center is fully transparent so text sits on clean dark navy; mandala only visible at edges/corners
+- `opacity: 0.40`; no rotation (static)
 - Mobile mask widens the transparent zone for narrow screens
 
-## Key Interactions (js/main.js)
-- `.reveal` / `.is-visible` — scroll-triggered fade-in via IntersectionObserver
-- `data-count` attributes — animated number counters (fire on scroll)
+## JS Patterns (js/main.js)
+- `.reveal` / `.is-visible` — scroll-triggered fade-in via IntersectionObserver (threshold 0.12)
+- `data-count` / `data-suffix` attributes — animated number counters (eased cubic, 1400ms, fire once)
 - `.fq` / `.fq.open` — FAQ accordion (one open at a time)
-- Nav `.scrolled` class — adds backdrop blur on scroll
-- Mobile burger menu toggle
+- Nav `.scrolled` class — adds backdrop blur after 40px scroll
+- Active nav link tracking via `sectionObserver` (rootMargin `-50% 0px -50% 0px`)
+- Smooth scroll with 72px offset for sticky nav height
+- Mobile burger: locks `body` scroll when menu is open
 
-## Responsive Breakpoints (css/styles.css)
+## Assets
+- `assets/home_bg.png` — hero background mandala (grayscale + masked)
+- `assets/app_icon.png` — app icon (foundation section)
+- `assets/ic_nudge_logo.png` — logo mark (nav + footer)
+- `assets/cultivate_icon.png`, `live_icon.png`, `return_icon.png` — pillar card icons
+- `assets/screenshots/IMG_9068.png` — Enter screen (used in Guided Meditation back + Activities back)
+- `assets/screenshots/IMG_9069.png` — Activities screen (used in Guided Activities front)
+- `assets/screenshots/IMG_9070.png` — Technique selection screen (used in Guided Meditation front)
+- `assets/screenshots/still_focused.png` — Stay/nudge prompt (used in Stay section)
+- `assets/screenshots/` — 3 additional screenshots not yet used on site
+
+## Responsive Breakpoints
 | Breakpoint | Targets |
 |---|---|
 | 1024px | iPad Pro landscape, small laptops |
-| 900px  | iPad Mini/Air landscape — 2-col features, stacked philosophy/activities |
-| 768px  | iPad portrait, large phones — burger nav, 2x2 stats |
-| 640px  | Large phones — reduced section padding |
-| 480px  | Standard phones (iPhone 14, Pixel) — stacked buttons, 1-col techniques |
-| 390px  | Small phones (iPhone SE, mini) — scaled-down type |
+| 900px  | iPad Mini/Air landscape |
+| 768px  | iPad portrait, large phones — burger nav |
+| 640px  | Large phones |
+| 480px  | Standard phones (iPhone 14, Pixel) |
+| 390px  | Small phones (iPhone SE, mini) |
 | 360px  | Very small Android phones |
 
 `prefers-reduced-motion` disables all animations.
 
+## Known Gaps / Pending Work
+- `privacy.html` and `terms.html` not yet created (linked in footer)
+- App logo/icon not set as favicon
+- Custom domain setup for `yournudge.com`:
+  1. Add `CNAME` file to repo root containing: `yournudge.com`
+  2. Add DNS A records pointing to GitHub Pages IPs (185.199.108.153 / .109 / .110 / .111)
+  3. Enable "Enforce HTTPS" in repo Settings → Pages
+
 ## App Store Link
 `https://apps.apple.com/us/app/your-nudge/id6739236420`
 
-## Pricing Plans
-- **$0 / free** — Maintain Your Practice (core features)
-- **$9.99/yr** — Support Your Practice (full library)
-- **$19.99/yr** — Deepen Your Commitment (everything + priority access)
-- Payment is done in-app after free download. Note shown below cards.
-
-## Known Gaps / Future Work
-- Social media links need real URLs (currently placeholder `#`) — Instagram, X, Facebook
-- `privacy.html` and `terms.html` not yet created (linked in footer)
-- Custom domain setup for `yournudge.com` (see instructions below)
-- Real testimonials/reviews if available
-- App logo/icon as favicon (currently none)
-
-## Custom Domain Setup (when ready)
-1. Add a `CNAME` file to repo root containing: `yournudge.com`
-2. In DNS provider add A records pointing to GitHub Pages IPs (185.199.108.153, .109, .110, .111)
-   — or CNAME: `www` → `parisa-singh.github.io`
-3. Enable "Enforce HTTPS" in repo Settings → Pages
-
-## To Deploy Changes
-```bash
-git add .
-git commit -m "your message"
-git push origin main
-```
-GitHub Pages auto-deploys within ~30 seconds.
+## Social Links (live)
+- Instagram: `https://www.instagram.com/a.simple.nudge/`
+- X (Twitter): `https://x.com/simplenudge`
+- Facebook: `https://www.facebook.com/ASimpleNudge`
