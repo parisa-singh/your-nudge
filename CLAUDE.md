@@ -100,13 +100,33 @@ The hero uses `home_bg.png` (grey mandala texture) with:
 
 `prefers-reduced-motion` disables all animations.
 
+## Pages
+- `index.html` — main single-page site
+- `privacy.html` — Privacy Policy (Nirvaan, LLC; last updated 8/6/2024)
+- `terms.html` — Terms & Conditions (Nirvaan, LLC; last updated 8/6/2024)
+
+All internal links use relative paths (e.g. `privacy.html`, `index.html#pricing`) — no leading slashes. This is required for GitHub Pages subdirectory hosting and will continue to work correctly once the custom domain is live.
+
+## Custom Domain Setup (in progress)
+`CNAME` file is already in the repo root containing `yournudge.com`.
+
+Remaining steps:
+1. **GitHub:** Go to repo Settings → Pages → set Custom domain to `yournudge.com` → Save
+2. **DNS (at registrar):** Add/replace these records:
+   - A `@` → `185.199.108.153`
+   - A `@` → `185.199.109.153`
+   - A `@` → `185.199.110.153`
+   - A `@` → `185.199.111.153`
+   - CNAME `www` → `parisa-singh.github.io`
+   - Delete any old A records pointing to the previous host
+3. **After DNS propagates** (5 min – 48 hrs): enable "Enforce HTTPS" in repo Settings → Pages
+
+To find the registrar: lookup `yournudge.com` at lookup.icann.org.
+
 ## Known Gaps / Pending Work
-- `privacy.html` and `terms.html` not yet created (linked in footer)
 - App logo/icon not set as favicon
-- Custom domain setup for `yournudge.com`:
-  1. Add `CNAME` file to repo root containing: `yournudge.com`
-  2. Add DNS A records pointing to GitHub Pages IPs (185.199.108.153 / .109 / .110 / .111)
-  3. Enable "Enforce HTTPS" in repo Settings → Pages
+- Custom domain DNS not yet updated (see above)
+- Once custom domain is live, test all relative links still resolve correctly
 
 ## App Store Link
 `https://apps.apple.com/us/app/your-nudge/id6739236420`
