@@ -1284,7 +1284,12 @@ a.chip--more:hover {
   .features__grid { gap: 16px; }
   .philosophy__inner { gap: 48px; }
   .activities__inner { gap: 48px; }
+  .meditation__inner { gap: 48px; }
+  .stay__inner { gap: 48px; }
   .footer__top { gap: 40px; }
+  /* Shrink phone pair so it doesn't overflow the column at narrow desktop */
+  .phone-wrap--front { width: 200px; }
+  .phone-wrap--back { width: 170px; }
 }
 
 /* --- Tablet landscape (iPad Mini/Air landscape, large Android tablets) --- */
@@ -1328,6 +1333,7 @@ a.chip--more:hover {
 
   .features__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
   .fcard { padding: 40px 28px; }
+  .fcard__explore { opacity: 1; }
 
   .mandala-viz { width: 240px; height: 240px; }
   .mv-ring--3 { inset: 50px; }
@@ -1381,6 +1387,7 @@ a.chip--more:hover {
   .techniques__grid { grid-template-columns: 1fr; }
 
   .phone-wrap { width: 200px; }
+  .phones-pair .phone-wrap--front { width: 200px; }
 
   .fq__q { padding: 18px 20px; font-size: 0.93rem; }
   .fq__a p { padding: 0 20px 20px; }
@@ -1403,6 +1410,7 @@ a.chip--more:hover {
   .plan__price { font-size: 2.2rem; }
 
   .phone-wrap { width: 180px; }
+  .phones-pair .phone-wrap--front { width: 180px; }
 
   .nav__inner { padding: 0 16px; }
   .mobile-menu { padding: 90px 24px 40px; }
@@ -1416,6 +1424,7 @@ a.chip--more:hover {
   .chip { padding: 8px 12px; font-size: 0.8rem; }
   .stat__n { font-size: 1.6rem; }
   .phone-wrap { width: 160px; }
+  .phones-pair .phone-wrap--front { width: 160px; }
 }
 
 /* --- Reduced motion preference --- */
